@@ -212,7 +212,6 @@ var ViewPullRequestDetails = function(context, api) {
       )
       .fail(
         function(e) {
-          console.log("fail, e");
           if (e.status == 401) {
             InvalidLicenseNagbar.show();
           } else {

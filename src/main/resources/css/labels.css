@@ -4,8 +4,9 @@
     line-height: 1.3;
 }
 
-.rq-labels-table-header {
-    min-width: 200px;
+.rq-labels-table-header, .rq-labels-table-row {
+    width: 1%;
+    white-space: nowrap;
 }
 
 .rq-labels-side-panel {
@@ -89,14 +90,13 @@ body[data-aui-version^="7.6"] .rq-labels-icon-tag {
     background: none;
 }
 
-.rq-label .aui-icon.aui-icon-close:after {
-    content: "×";
-    font-size: 16px;
+.rq-label .aui-icon.aui-icon-close:before {
+    font-size: 12px;
     display: block;
     text-indent: 0;
     position: absolute;
-    top: -4px;
-    right: 0px;
+    top: 0;
+    right: 0;
 }
 
 .rq-labels-side-panel .rq-labels-select {
