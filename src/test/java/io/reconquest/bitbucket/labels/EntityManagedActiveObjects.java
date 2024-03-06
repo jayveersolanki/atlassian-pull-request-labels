@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeoutException;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.activeobjects.external.ActiveObjectsModuleMetaData;
+import com.atlassian.activeobjects.external.FailedFastCountException;
 import com.atlassian.activeobjects.internal.AbstractActiveObjectsMetaData;
 import com.atlassian.activeobjects.internal.ActiveObjectsSqlException;
 import com.atlassian.activeobjects.spi.DatabaseType;
@@ -95,6 +97,16 @@ public class EntityManagedActiveObjects implements ActiveObjects {
     } catch (SQLException e) {
       throw new ActiveObjectsSqlException(entityManager, e);
     }
+  }
+
+  @Override
+  public <T extends RawEntity<K>, K> void create(Class<T> aClass, List<Map<String, Object>> list)
+  {
+      try {
+          entityManager.create(aClass, list);
+      } catch (SQLException e) {
+        throw new ActiveObjectsSqlException(entityManager, e);
+      }
   }
 
   public final void delete(RawEntity<?>... entities) {
@@ -202,6 +214,16 @@ public class EntityManagedActiveObjects implements ActiveObjects {
   /// CLOVER:ON
   public final <T> T executeInTransaction(final TransactionCallback<T> callback) {
     return callback.doInTransaction();
+  }
+
+  @Override
+  public <K> int getFastCountEstimate(Class<? extends RawEntity<K>> aClass) throws SQLException, FailedFastCountException
+  {
+      try {
+          return entityManager.getFastCountEstimate(aClass);
+      } catch (net.java.ao.FailedFastCountException e) {
+          throw new RuntimeException(e);
+      }
   }
 
   @Override

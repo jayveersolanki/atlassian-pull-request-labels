@@ -44,7 +44,6 @@ import com.atlassian.bitbucket.util.Page;
 import com.atlassian.bitbucket.util.PageImpl;
 import com.atlassian.bitbucket.util.PageRequest;
 import com.atlassian.bitbucket.util.PageRequestImpl;
-import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.upm.api.license.PluginLicenseManager;
 
@@ -59,7 +58,6 @@ import io.reconquest.bitbucket.labels.rest.response.PullRequestLabelsTreeRespons
 import io.reconquest.bitbucket.labels.service.LabelsService;
 
 @Path("/")
-@Scanned
 public class PullRequestLabels {
   private final RepositoryService repositoryService;
   private final PullRequestService pullRequestService;

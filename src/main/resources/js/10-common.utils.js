@@ -74,6 +74,8 @@ var Observer = function(selector, fn) {
     $.each(mutations, function(index, mutation) {
       var $target = $(mutation.target);
 
+      console.log($target);
+      console.log("$target.filter(selector).length", $target.filter(selector).length);
       if ($target.filter(selector).length > 0) {
         if (timeout != null) {
           clearTimeout(timeout);

@@ -104,7 +104,8 @@ var ViewPullRequestListWithFilter = function(context, api) {
 };
 
 var ViewPullRequestDetails = function(context, api) {
-  this._$ = $(".plugin-section-primary");
+  const summaryPanelSelector = ".pull-request-overview .summary-panel";
+  this._$ = $(summaryPanelSelector);
   var pr = context.getPullRequestID();
   if (!pr) {
     return new ViewNotApplicable();
@@ -211,6 +212,7 @@ var ViewPullRequestDetails = function(context, api) {
       )
       .fail(
         function(e) {
+          console.log("fail, e");
           if (e.status == 401) {
             InvalidLicenseNagbar.show();
           } else {
@@ -226,9 +228,9 @@ var ViewPullRequestDetails = function(context, api) {
     var root = $(".aui-page-panel-inner");
 
     var observer = new Observer(
-      ".plugin-section-primary, .summary-panel",
+      "#pull-requests-container, .summary-panel",
       function(target) {
-        this._$ = target;
+        this._$ = $(summaryPanelSelector);
         this._mount();
       }.bind(this)
     );
