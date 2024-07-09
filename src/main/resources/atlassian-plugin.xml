@@ -12,7 +12,8 @@
         <!--<param name="atlassian-data-center-compatible">true</param>-->
     </plugin-info>
 
-    <resource type="i18n" name="i18n" location="${project.groupId}.${project.artifactId}"/>
+<!--    <resource type="i18n" name="i18n" location="${project.groupId}.${project.artifactId}"/>-->
+    <resource type="i18n" name="i18n" location="i18n/labels"/>
 
     <web-resource name="Resources" key="resources">
         <transformation extension="soy">
@@ -57,4 +58,21 @@
         <description>Controls the initialisation logic of the Pull Request Labels</description>
         <interface>com.atlassian.sal.api.lifecycle.LifecycleAware</interface>
     </component>
+
+    <repository-merge-check key="overridable-approvals" name="Minimum approvals (overridable by labels)"
+                            class="io.reconquest.bitbucket.labels.RequireLabelsOrApprovalMergeCheck">
+        <description>
+            Require at least the specified number of approvals unless a configured label is supplied.
+        </description>
+        <scopes>
+            <scope>project</scope>
+            <scope>repository</scope>
+        </scopes>
+        <config-form name="Merge Check Config" key="mergeCheck-config">
+            <view>io.reconquest.bitbucket.labels.mergeCheckForm</view>
+            <directory location="/soy/"/>
+        </config-form>
+        <!-- Validators can be declared separately -->
+        <validator>io.reconquest.bitbucket.labels.mergeCheck.Validator</validator>
+    </repository-merge-check>
 </atlassian-plugin>

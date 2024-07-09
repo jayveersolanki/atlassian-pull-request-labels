@@ -1,7 +1,27 @@
 {namespace io.reconquest.bitbucket.labels}
 
-/*
- * Can be used later for i18n.
+/**
+ * @param config
+ * @param? errors
  */
-
-
+{template .mergeCheckForm}
+    {call aui.form.textField}
+        {param id: 'approvals' /}
+        {param value: $config['approvals'] /}
+        {param labelContent}
+            {getText('labels.mergeCheck.config.approvals.label')}
+        {/param}
+        {param description: getText('labels.mergeCheck.config.approvals.description') /}
+        {param extraClasses: 'short' /}
+        {param errorTexts: $errors ? $errors['approvals'] : null /}
+    {/call}
+    {call aui.form.textField}
+        {param id: 'overridingLabels' /}
+        {param value: $config['overridingLabels'] /}
+        {param labelContent}
+            {getText('labels.mergeCheck.config.overridingLabels.label')}
+        {/param}
+        {param description: getText('labels.mergeCheck.config.overridingLabels.description') /}
+        {param errorTexts: $errors ? $errors['overridingLabels'] : null /}
+    {/call}
+{/template}
