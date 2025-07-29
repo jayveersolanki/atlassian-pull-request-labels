@@ -1,6 +1,7 @@
 package io.reconquest.bitbucket.labels.rest;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+//import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.Objects;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ import com.atlassian.bitbucket.pull.PullRequestService;
 import com.atlassian.bitbucket.pull.PullRequestState;
 import com.atlassian.bitbucket.repository.Repository;
 import com.atlassian.bitbucket.repository.RepositoryService;
-import com.atlassian.bitbucket.rest.pull.RestPullRequest;
+//import com.atlassian.bitbucket.rest.pull.RestPullRequest;
 import com.atlassian.bitbucket.rest.pull.RestPullRequestParticipant;
 import com.atlassian.bitbucket.rest.util.RestPage;
 import com.atlassian.bitbucket.util.Page;
@@ -79,13 +80,22 @@ public class PullRequestLabels {
       @ComponentImport AuthenticationContext authContext) {
     this.licenseValidator = new LicenseValidator(LabelsService.PLUGIN_KEY, pluginLicenseManager);
 
-    this.repositoryService = checkNotNull(repositoryService);
+    /*this.repositoryService = checkNotNull(repositoryService);
     this.pullRequestService = checkNotNull(pullRequestService);
     this.projectService = checkNotNull(projectService);
     this.avatarService = checkNotNull(avatarService);
     this.authContext = checkNotNull(authContext);
-
     this.dao = new LabelDao(checkNotNull(ao));
+    */
+
+    this.repositoryService = Objects.requireNonNull(repositoryService, "RepositoryService must not be null");
+    this.pullRequestService = Objects.requireNonNull(pullRequestService, "PullRequestService must not be null");
+    this.projectService = Objects.requireNonNull(projectService, "ProjectService must not be null");
+    this.avatarService = Objects.requireNonNull(avatarService, "AvatarService must not be null");
+    this.authContext = Objects.requireNonNull(authContext, "AuthenticationContext must not be null");
+
+    this.dao = new LabelDao(Objects.requireNonNull(ao, "ActiveObjects must not be null"));
+
   }
 
   @GET

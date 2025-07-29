@@ -1,6 +1,8 @@
 package io.reconquest.bitbucket.labels;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+//import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.Objects;
+
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -36,7 +38,8 @@ public class EntityManagedActiveObjects implements ActiveObjects {
 
   protected EntityManagedActiveObjects(EntityManager entityManager, DatabaseType dbType) {
     this.dbType = dbType;
-    this.entityManager = checkNotNull(entityManager);
+    //this.entityManager = checkNotNull(entityManager);
+    this.entityManager = Objects.requireNonNull(entityManager, "EntityManager must not be null");
   }
 
   /// CLOVER:OFF
